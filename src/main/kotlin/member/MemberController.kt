@@ -6,12 +6,14 @@ class MemberController {
         println("==회원 정보 입력==")
         print("아이디 입력 : ")
         var loginId = readLine()?.trim()?:"no data"
+        print("비밀번호 입력 : ")
+        var loginPw = readLine()?.trim()?:"no data"
         print("이름 입력 : ")
         var name = readLine()?.trim()?:"no data"
         print("닉네임 입력 : ")
         var nickname = readLine()?.trim()?:"no data"
 
-        var newMember = memberService.save(loginId, name, nickname)
+        var newMember = memberService.save(loginId, loginPw, name, nickname) ?: return
 
         println("== new Member!! ==")
         println("id : ${newMember.id}")
@@ -35,7 +37,7 @@ class MemberController {
 
     fun modify(memberService: MemberService, loginId: String){
         println("==========")
-        println("수정할 이름 : ")
+        print("수정할 닉네임 : ")
         val nickname = readLine()?.trim()?:"no data"
 
         val member = memberService.modify(nickname, loginId);

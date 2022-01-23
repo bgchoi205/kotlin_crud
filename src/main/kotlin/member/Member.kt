@@ -2,7 +2,8 @@ package member
 
 data class Member(
     val id : Int,
-    var loginId : String,
-    var name : String,
+    val loginId : String,
+    val loginPw: String,
+    val name : String,
     var nickname: String
 )

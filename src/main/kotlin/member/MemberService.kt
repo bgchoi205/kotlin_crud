@@ -9,9 +9,20 @@ class MemberService {
         println("printTest : " + (a + b))
     }
 
-    fun save(loginId: String, name: String, nickname: String): Member{
+    fun save(loginId: String, loginPw: String, name: String, nickname: String): Member?{
 
-        val member = Member(memberId + 1, loginId, name, nickname)
+        memberList.forEach{
+            if(it.loginId == loginId){
+                println("이미 존재하는 아이디입니다.")
+                return null
+            }
+            if(it.nickname == nickname){
+                println("이미 존재하는 닉네임입니다.")
+                return null
+            }
+        }
+
+        val member = Member(memberId + 1, loginId, loginPw, name, nickname)
         memberList.add(member)
         memberId++
 
@@ -19,6 +30,14 @@ class MemberService {
     }
 
     fun modify(nickname: String, loginId: String): Member? {
+
+        memberList.forEach{
+            if(it.nickname == nickname) {
+                println("이미 사용중인 닉네임입니다.")
+                return null
+            }
+        }
+
         memberList.forEach {
             if(it.loginId == loginId) {
                 it.nickname = nickname
@@ -28,10 +47,10 @@ class MemberService {
         return null
     }
 
-    fun login(loginId: String): Member? {
+    fun login(loginId: String, loginPw: String): Member? {
 
         memberList.forEach {
-            if(it.loginId == loginId) return it
+            if(it.loginId == loginId && it.loginPw == loginPw) return it
         }
 
         return null
